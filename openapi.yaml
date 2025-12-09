@@ -1,0 +1,104 @@
+openapi: 3.0.4
+info:
+  title: DANE Record Validator
+  description: DANE Record Validator validates DANE/TLSA DNS records used for certificate authentication, providing security analysis and best practice recommendations.
+  termsOfService: https://apiverve.com/terms/
+  contact:
+    name: APIVerve Support
+    email: hello@apiverve.com
+    url: https://apiverve.com/contact
+  version: 1.0.9
+externalDocs:
+  description: Learn more about APIVerve
+  url: https://docs.apiverve.com?utm_source=openapi
+servers:
+- url: https://api.apiverve.com/
+paths:
+  /v1/danevalidator:
+    post:
+      summary: Validate DANE Record
+      description: DANE Record Validator validates DANE/TLSA DNS records used for certificate authentication, providing security analysis and best practice recommendations.
+      operationId: danevalidator
+      parameters: []
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: status
+                  error:
+                    type: string
+                    description: error
+                  data:
+                    type: string
+                    description: data
+              example:
+                status: ok
+                error: 
+                data:
+                  raw_record: _443._tcp.example.com. 86400 IN TLSA 3 1 1 0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF
+                  parsed:
+                    name: _443._tcp.example.com.
+                    port: 443
+                    protocol: tcp
+                    hostname: example.com
+                    ttl: 86400
+                    class: IN
+                    usage: 3
+                    selector: 1
+                    matching: 1
+                    certificate_data: 0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF
+                    certificate_data_length: 64
+                  interpretation:
+                    usage:
+                      name: DANE-EE
+                      description: Domain-issued certificate
+                      full_description: Certificate must exactly match the provided association data (most common)
+                    selector:
+                      name: SPKI
+                      description: SubjectPublicKeyInfo
+                      full_description: Match against the Subject Public Key Info (recommended)
+                    matching:
+                      name: SHA-256
+                      description: SHA-256 hash
+                      full_description: SHA-256 hash of the selected content (recommended)
+                    security_level: Recommended
+                    recommendation: This is the recommended DANE configuration (DANE-EE + SPKI + SHA-256)
+                  validation:
+                    is_valid: true
+                    certificate_data_format: Valid hexadecimal
+                    certificate_data_length_valid: true
+        '401':
+          description: Your request was not authorized, or your API Key was invalid
+        '404':
+          description: Requested resource was not found
+        '500':
+          description: A server error has occured, try again later
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                record:
+                  type: string
+                  description: The DANE/TLSA record string to validate
+                  example: _443._tcp.example.com. 86400 IN TLSA 3 1 1 0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF
+              required:
+              - record
+              example:
+                record: _443._tcp.example.com. 86400 IN TLSA 3 1 1 0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF
+components:
+  securitySchemes:
+    api_key:
+      type: apiKey
+      name: x-api-key
+      in: header
+security:
+- api_key: []

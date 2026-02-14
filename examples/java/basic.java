@@ -12,12 +12,8 @@ public class BasicExample {
         DANERecordValidatorAPIClient client = new DANERecordValidatorAPIClient("YOUR_API_KEY_HERE");
 
         try {
-            // Request body
-            Map&lt;String, Object&gt; parameters &#x3D; new HashMap&lt;&gt;();
-        parameters.put(&quot;record&quot;, &quot;_443._tcp.example.com. 86400 IN TLSA 3 1 1 0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF&quot;);
-
-            // Execute the API request
-            APIResponse response = client.execute(parameters);
+            // Execute the API request (no parameters required)
+            APIResponse response = client.execute(null);
 
             // Check if the request was successful
             if (response.isSuccess()) {

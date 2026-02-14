@@ -1,23 +1,26 @@
 openapi: 3.0.4
 info:
   title: DANE Record Validator
-  description: DANE Record Validator validates DANE/TLSA DNS records used for certificate authentication, providing security analysis and best practice recommendations.
+  description: >-
+    DANE Record Validator validates DANE/TLSA DNS records used for certificate
+    authentication, providing security analysis and best practice
+    recommendations.
   termsOfService: https://apiverve.com/terms/
   contact:
     name: APIVerve Support
     email: hello@apiverve.com
     url: https://apiverve.com/contact
-  version: 1.0.9
+  version: 1.0.0
 externalDocs:
   description: Learn more about APIVerve
   url: https://docs.apiverve.com?utm_source=openapi
 servers:
-- url: https://api.apiverve.com/
+  - url: https://api.apiverve.com/
 paths:
   /v1/danevalidator:
     post:
       summary: Validate DANE Record
-      description: DANE Record Validator validates DANE/TLSA DNS records used for certificate authentication, providing security analysis and best practice recommendations.
+      description: Validate a DANE/TLSA DNS record
       operationId: danevalidator
       parameters: []
       responses:
@@ -35,13 +38,15 @@ paths:
                     type: string
                     description: error
                   data:
-                    type: string
+                    type: object
                     description: data
               example:
                 status: ok
-                error: 
+                error: null
                 data:
-                  raw_record: _443._tcp.example.com. 86400 IN TLSA 3 1 1 0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF
+                  raw_record: >-
+                    _443._tcp.example.com. 86400 IN TLSA 3 1 1
+                    0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF
                   parsed:
                     name: _443._tcp.example.com.
                     port: 443
@@ -52,13 +57,16 @@ paths:
                     usage: 3
                     selector: 1
                     matching: 1
-                    certificate_data: 0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF
+                    certificate_data: >-
+                      0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF
                     certificate_data_length: 64
                   interpretation:
                     usage:
                       name: DANE-EE
                       description: Domain-issued certificate
-                      full_description: Certificate must exactly match the provided association data (most common)
+                      full_description: >-
+                        Certificate must exactly match the provided association
+                        data (most common)
                     selector:
                       name: SPKI
                       description: SubjectPublicKeyInfo
@@ -68,7 +76,9 @@ paths:
                       description: SHA-256 hash
                       full_description: SHA-256 hash of the selected content (recommended)
                     security_level: Recommended
-                    recommendation: This is the recommended DANE configuration (DANE-EE + SPKI + SHA-256)
+                    recommendation: >-
+                      This is the recommended DANE configuration (DANE-EE + SPKI
+                      + SHA-256)
                   validation:
                     is_valid: true
                     certificate_data_format: Valid hexadecimal
@@ -78,7 +88,7 @@ paths:
         '404':
           description: Requested resource was not found
         '500':
-          description: A server error has occured, try again later
+          description: A server error has occurred, try again later
       requestBody:
         required: true
         content:
@@ -89,11 +99,8 @@ paths:
                 record:
                   type: string
                   description: The DANE/TLSA record string to validate
-                  example: _443._tcp.example.com. 86400 IN TLSA 3 1 1 0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF
               required:
-              - record
-              example:
-                record: _443._tcp.example.com. 86400 IN TLSA 3 1 1 0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF
+                - record
 components:
   securitySchemes:
     api_key:
@@ -101,4 +108,8 @@ components:
       name: x-api-key
       in: header
 security:
-- api_key: []
+  - api_key: []
+sampleRequest:
+  record: >-
+    _443._tcp.example.com. 86400 IN TLSA 3 1 1
+    0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF

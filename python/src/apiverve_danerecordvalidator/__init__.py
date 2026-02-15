@@ -1,1 +1,3 @@
-from .apiClient import DanevalidatorAPIClient
+from .apiClient import DanevalidatorAPIClient, DanevalidatorAPIClientError
+
+__all__ = ['DanevalidatorAPIClient', 'DanevalidatorAPIClientError']

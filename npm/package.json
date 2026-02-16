@@ -1,6 +1,6 @@
 {
   "name": "@apiverve/danevalidator",
-  "version": "1.1.13",
+  "version": "1.1.14",
   "description": "DANE Record Validator validates DANE/TLSA DNS records used for certificate authentication, providing security analysis and best practice recommendations.",
   "main": "index.js",
   "types": "index.d.ts",

@@ -26,7 +26,7 @@ Add the dependency:
 
 ```gradle
 dependencies {
-    implementation 'com.github.apiverve:danevalidator-api:1.1.13'
+    implementation 'com.github.apiverve:danevalidator-api:1.1.14'
 }
 ```
 
@@ -47,7 +47,7 @@ DANERecordValidatorAPIClient client = new DANERecordValidatorAPIClient("YOUR_API
 try {
     // Prepare request parameters
     Map<String, Object> parameters = new HashMap<>();
-    parameters.put("record", "_443._tcp.example.com. 3600 IN TLSA 3 1 1 abc123...");
+    parameters.put("record", "_443._tcp.example.com. 86400 IN TLSA 3 1 1 0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF");
 
     // Execute the request
     APIResponse response = client.execute(parameters);

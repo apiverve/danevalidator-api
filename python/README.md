@@ -253,8 +253,9 @@ from apiverve_danerecordvalidator.apiClient import DanevalidatorAPIClient
 
 api = DanevalidatorAPIClient("[YOUR_API_KEY]")
 
+query = { "record": "_443._tcp.example.com. 86400 IN TLSA 3 1 1 0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF" }
+
 try:
-    query = { "record": "_443._tcp.example.com. 86400 IN TLSA 3 1 1 0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF" }
     result = api.execute(query)
     print(result)
 finally:

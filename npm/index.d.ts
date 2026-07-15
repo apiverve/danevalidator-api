@@ -4,16 +4,28 @@ declare module '@apiverve/danevalidator' {
     secure?: boolean;
   }
 
+  /**
+   * Describes fields the current plan does not unlock. Locked fields arrive as null
+   * in `data`; `locked_fields` names them, using dot paths for nested fields.
+   * Absent when the plan unlocks everything.
+   */
+  export interface PremiumInfo {
+    message: string;
+    upgrade_url: string;
+    locked_fields: string[];
+  }
+
   export interface danevalidatorResponse {
     status: string;
     error: string | null;
     data: DANERecordValidatorData;
     code?: number;
+    premium?: PremiumInfo;
   }
 
 
   interface DANERecordValidatorData {
-      rawRecord:      string;
+      rawRecord:      null | string;
       parsed:         Parsed;
       interpretation: Interpretation;
       validation:     Validation;
@@ -23,34 +35,34 @@ declare module '@apiverve/danevalidator' {
       usage:          Matching;
       selector:       Matching;
       matching:       Matching;
-      securityLevel:  string;
-      recommendation: string;
+      securityLevel:  null | string;
+      recommendation: null | string;
   }
   
   interface Matching {
-      name:            string;
-      description:     string;
-      fullDescription: string;
+      name:            null | string;
+      description:     null | string;
+      fullDescription: null | string;
   }
   
   interface Parsed {
-      name:                  string;
-      port:                  number;
-      protocol:              string;
-      hostname:              string;
-      ttl:                   number;
-      class:                 string;
-      usage:                 number;
-      selector:              number;
-      matching:              number;
-      certificateData:       string;
-      certificateDataLength: number;
+      name:                  null | string;
+      port:                  number | null;
+      protocol:              null | string;
+      hostname:              null | string;
+      ttl:                   number | null;
+      class:                 null | string;
+      usage:                 number | null;
+      selector:              number | null;
+      matching:              number | null;
+      certificateData:       null | string;
+      certificateDataLength: number | null;
   }
   
   interface Validation {
-      isValid:                    boolean;
-      certificateDataFormat:      string;
-      certificateDataLengthValid: boolean;
+      isValid:                    boolean | null;
+      certificateDataFormat:      null | string;
+      certificateDataLengthValid: boolean | null;
   }
 
   export default class danevalidatorWrapper {

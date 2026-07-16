@@ -197,11 +197,65 @@ x-api-key: YOUR_API_KEY_HERE
 Get your API key: [https://apiverve.com](https://apiverve.com)
 
 ### Response Format
-All responses are JSON with this structure:
+
+Every APIVerve endpoint returns the same envelope — check `status`, then read `data`:
+
 ```json
 {
   "status": "ok",
+  "error": null,
   "data": { ... }
+}
+```
+
+### Example Response
+
+A real response from the DANE Record Validator API:
+
+```json
+{
+  "status": "ok",
+  "error": null,
+  "data": {
+    "raw_record": "_443._tcp.example.com. 86400 IN TLSA 3 1 1 0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF",
+    "parsed": {
+      "name": "_443._tcp.example.com.",
+      "port": 443,
+      "protocol": "tcp",
+      "hostname": "example.com",
+      "ttl": 86400,
+      "class": "IN",
+      "usage": 3,
+      "selector": 1,
+      "matching": 1,
+      "certificate_data": "0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF",
+      "certificate_data_length": 64
+    },
+    "interpretation": {
+      "usage": {
+        "name": "DANE-EE",
+        "description": "Domain-issued certificate",
+        "full_description": "Certificate must exactly match the provided association data (most common)"
+      },
+      "selector": {
+        "name": "SPKI",
+        "description": "SubjectPublicKeyInfo",
+        "full_description": "Match against the Subject Public Key Info (recommended)"
+      },
+      "matching": {
+        "name": "SHA-256",
+        "description": "SHA-256 hash",
+        "full_description": "SHA-256 hash of the selected content (recommended)"
+      },
+      "security_level": "Recommended",
+      "recommendation": "This is the recommended DANE configuration (DANE-EE + SPKI + SHA-256)"
+    },
+    "validation": {
+      "is_valid": true,
+      "certificate_data_format": "Valid hexadecimal",
+      "certificate_data_length_valid": true
+    }
+  }
 }
 ```
 

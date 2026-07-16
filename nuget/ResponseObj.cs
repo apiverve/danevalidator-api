@@ -25,6 +25,9 @@ namespace APIVerve.API.DANERecordValidator
 
         [JsonProperty("data")]
         public Data Data { get; set; }
+
+        [JsonProperty("premium")]
+        public Premium Premium { get; set; }
     }
 
     public partial class Data
@@ -78,7 +81,7 @@ namespace APIVerve.API.DANERecordValidator
         public string Name { get; set; }
 
         [JsonProperty("port")]
-        public long Port { get; set; }
+        public long? Port { get; set; }
 
         [JsonProperty("protocol")]
         public string Protocol { get; set; }
@@ -87,36 +90,48 @@ namespace APIVerve.API.DANERecordValidator
         public string Hostname { get; set; }
 
         [JsonProperty("ttl")]
-        public long Ttl { get; set; }
+        public long? Ttl { get; set; }
 
         [JsonProperty("class")]
         public string Class { get; set; }
 
         [JsonProperty("usage")]
-        public long Usage { get; set; }
+        public long? Usage { get; set; }
 
         [JsonProperty("selector")]
-        public long Selector { get; set; }
+        public long? Selector { get; set; }
 
         [JsonProperty("matching")]
-        public long Matching { get; set; }
+        public long? Matching { get; set; }
 
         [JsonProperty("certificate_data")]
         public string CertificateData { get; set; }
 
         [JsonProperty("certificate_data_length")]
-        public long CertificateDataLength { get; set; }
+        public long? CertificateDataLength { get; set; }
     }
 
     public partial class Validation
     {
         [JsonProperty("is_valid")]
-        public bool IsValid { get; set; }
+        public bool? IsValid { get; set; }
 
         [JsonProperty("certificate_data_format")]
         public string CertificateDataFormat { get; set; }
 
         [JsonProperty("certificate_data_length_valid")]
-        public bool CertificateDataLengthValid { get; set; }
+        public bool? CertificateDataLengthValid { get; set; }
+    }
+
+    public partial class Premium
+    {
+        [JsonProperty("message")]
+        public string Message { get; set; }
+
+        [JsonProperty("upgrade_url")]
+        public Uri UpgradeUrl { get; set; }
+
+        [JsonProperty("locked_fields")]
+        public string[] LockedFields { get; set; }
     }
 }

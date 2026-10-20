@@ -19,7 +19,7 @@ servers:
 paths:
   /v1/danevalidator:
     post:
-      summary: Validate DANE Record
+      summary: DANE Record Validator
       description: Validate a DANE/TLSA DNS record
       operationId: danevalidator
       parameters: []
@@ -57,8 +57,7 @@ paths:
                     usage: 3
                     selector: 1
                     matching: 1
-                    certificate_data: >-
-                      0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF
+                    certificate_data: 0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF
                     certificate_data_length: 64
                   interpretation:
                     usage:

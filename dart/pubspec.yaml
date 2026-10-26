@@ -1,7 +1,7 @@
 name: apiverve_danevalidator
-description: DANE Record Validator validates DANE/TLSA DNS records used for certificate authentication, providing security analysis and best practice recommendations.
-version: 1.1.14
-homepage: https://apiverve.com/marketplace/danevalidator?utm_source=dart&utm_medium=homepage
+description: "DANE Record Validator validates DANE/TLSA DNS records used for certificate authentication, providing security analysis and best practice recommendations."
+version: 1.2.3
+homepage: https://apiverve.com/marketplace/danevalidator?utm_source=dart&utm_medium=referral&utm_content=homepage
 repository: https://github.com/apiverve/danevalidator-api/tree/main/dart
 
 environment:

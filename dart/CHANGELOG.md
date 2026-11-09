@@ -1,4 +1,4 @@
-## 1.2.4
+## 1.2.5
 
 - Initial release
 - Full API support for DANE Record Validator API
